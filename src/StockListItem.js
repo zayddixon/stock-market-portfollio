@@ -2,28 +2,23 @@ import utilities from './utilities';
 
 function StockListItem(props) {
   
-  const { stock } = props;
-  const purchaseValueStr = utilities.formatNumber(stock.purchaseValue);
-  const currentValueStr = utilities.formatNumber(stock.currentValue);
-  
-  const purchasePriceStr = utilities.formatNumber(stock.purchasePrice);
-  const currentPriceStr = utilities.formatNumber(stock.currentPrice);
-  
-  const profitStr = utilities.formatNumber(stock.profit);
-  const profitClass = stock.profit < 0 ? 'loss' : 'profit';
-  
-  return (
-    <tr>
-      <td>{stock.ticker}</td>
-      <td>{stock.name}</td>
-      <td>{stock.shares}</td>
-      <td className="money">{purchasePriceStr}</td>
-      <td className="money">{purchaseValueStr}</td>
-      <td className="money">{currentPriceStr}</td>
-      <td className="money">{currentValueStr}</td>
-      <td className={"money "+profitClass}>{profitStr}</td>
-    </tr>
-  );
+  let { stock } = props;
+  let info = [];
+  for (let i = 0; i < stock.length; i++) {
+    let profitClass = stock[i].profit < 0 ? 'loss' : 'profit';
+    info.push(<tr>
+          <td>{stock[i].ticker}</td>
+          <td>{stock[i].name}</td>
+          <td>{stock[i].shares}</td>
+          <td className="money">{stock[i].purchasePrice}</td>
+          <td className="money">{stock[i].formattedPurchaseValue}</td>
+          <td className="money">{stock[i].currentPrice}</td>
+          <td className="money">{stock[i].formattedCurrentValue}</td>
+          <td className={"money "+profitClass}>{stock[i].formattedProfit}</td>
+        </tr>
+      );
+  }
+  return (info)
 }
 
 export default StockListItem;

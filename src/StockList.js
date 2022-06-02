@@ -4,7 +4,6 @@ import StockListItem from './StockListItem';
 import StockListTotals from './StockListTotals';
 
 function StockList(props) {
-  
   const sortedStockList = props.data.sort((a,b) => a.name < b.name ? -1 : 1); 
   
   return (
