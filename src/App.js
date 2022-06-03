@@ -148,7 +148,7 @@ function App() {
           <h4>{myName}'s Stock Portfolio</h4>
         </CardHeader>
         <CardBody>
-          <StockList data={portfolioData} />
+          <StockList data={portfolioData} portfolio={getPortfolio}/>
         </CardBody>
         <CardFooter>
           <Button size="sm" onClick={addStock}>Add stock</Button>
