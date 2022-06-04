@@ -21,3 +21,17 @@
 .summary {
   text-align: left;
 }
+
+.btn {
+  margin: 15px 10px;
+}
+
+label {
+  text-align: left;
+  font-weight: bold;
+  margin-top: 10px !important;
+}
+
+.add-stock-error {
+  color: red;
+}

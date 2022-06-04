@@ -24,13 +24,10 @@ function StockListItem(props) {
         })
         .then(function(response) {
           props.portfolio()
-          
-          console.log('delete-stock complete');
         })
         .catch(function(error) {
           console.log('fetch-error');
         })
-    console.log("DELETE STOCK for " + ticker);
   }
   
   for (let i = 0; i < stock.length; i++) {

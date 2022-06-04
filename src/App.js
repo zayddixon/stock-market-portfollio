@@ -3,6 +3,7 @@ import './App.css';
 import { Card, CardHeader, CardBody, CardFooter, Button } from 'reactstrap';
 import StockList from './StockList';
 import utilities from './utilities';
+import AddStockForm from './AddStockForm';
 
 function App() {
   const AWS_API_GATEWAY = 'https://dsam16axa9.execute-api.us-east-1.amazonaws.com/prod';
@@ -11,12 +12,13 @@ function App() {
   
   // Uncomment setMyName if required, for example, if the name
   // is stored in the DynamoDB
-  const [myName/*, setMyName*/] = useState('Roger');
+  const [myName/*, setMyName*/] = useState('Zayd');
   
   const [stocks, setStocks] = useState([]);
   const [stockPrices, setStockPrices] = useState({});
   const [tickerList, setTickerList] = useState([]);
   const [portfolioData, setPortfolioData] = useState([]);
+  const [showAddStockForm, setAddStockForm] = useState(false);
   
   const getPortfolio = () => {
     const options = {
@@ -80,7 +82,7 @@ function App() {
         })
     })
   }
-  
+
   // Retrieve the current stock information when the page first loads
   useEffect(() => {
     getPortfolio();
@@ -138,24 +140,36 @@ function App() {
   }, [stocks, stockPrices])
   
   const addStock = evt => {
-    console.log(stocks);
+    setAddStockForm(value => !value);
   };
+  
+  const closeAddStockForm = () => {
+    setAddStockForm(false);
+  }
 
-  return (
-    <div className="App">
-      <Card>
-        <CardHeader className="card-header-color">
-          <h4>{myName}'s Stock Portfolio</h4>
-        </CardHeader>
-        <CardBody>
-          <StockList data={portfolioData} portfolio={getPortfolio}/>
-        </CardBody>
-        <CardFooter>
-          <Button size="sm" onClick={addStock}>Add stock</Button>
-        </CardFooter>
-      </Card>
-    </div>
-  );
+  if (showAddStockForm == true) {
+    return(
+      <div>
+        <AddStockForm portfolio={getPortfolio} closeAddStockForm={closeAddStockForm} />
+      </div>
+    );
+  } else {
+    return(
+      <div className="App">
+        <Card>
+          <CardHeader className="card-header-color">
+            <h4>{myName}'s Stock Portfolio</h4>
+          </CardHeader>
+          <CardBody>
+            <StockList data={portfolioData} portfolio={getPortfolio}/>
+          </CardBody>
+          <CardFooter>
+            <Button size="sm" onClick={addStock}>Add stock</Button>
+          </CardFooter>
+        </Card>
+      </div>
+    );
+  }
 }
 
 export default App;
